@@ -1,4 +1,5 @@
 #ifndef _MAIN_H
+#define _MAIN_H
 #include "GLFW/glfw3.h"
 
 typedef struct Context {

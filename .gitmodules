@@ -1,0 +1,9 @@
+[submodule "external_modules/glfw"]
+	path = external_modules/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "external_modules/lodepng"]
+	path = external_modules/lodepng
+	url = https://github.com/lvandeve/lodepng.git
+[submodule "external_modules/glew"]
+	path = external_modules/glew
+	url = https://github.com/Perlmint/glew-cmake
