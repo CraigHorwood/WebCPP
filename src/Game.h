@@ -1,5 +1,6 @@
 #ifndef _GAME_H
 #define _GAME_H
+#include "GLFW/glfw3.h"
 
 class Game {
 public:

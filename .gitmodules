@@ -7,6 +7,3 @@
 [submodule "external_modules/glew"]
 	path = external_modules/glew
 	url = https://github.com/Perlmint/glew-cmake
-[submodule "external_modules/glew-cmake"]
-	path = external_modules/glew-cmake
-	url = https://github.com/Perlmint/glew-cmake
