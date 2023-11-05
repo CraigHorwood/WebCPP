@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GLFW/glfw3.h"
 #include <cstring>
+#include "GameState.h"
 
 void Game::init() {
 	memset(lastKeys, false, (GLFW_KEY_LAST + 1) * sizeof(bool));
@@ -9,27 +10,65 @@ void Game::init() {
 	yMouse = 0;
 	xMouseLast = 0;
 	yMouseLast = 0;
-	mouseDown = false;
+	mouseIsDown = false;
 	mouseWasDown = false;
+	state = new GameState();
 }
 
 void Game::mainLoop() {
 	// Tick for length of passed time
 	// Render
+	tick();
+	render();
 }
 
 void Game::shutdown() {
-	// Delete
+	delete state;
 }
 
 void Game::tick() {
-	// Game update
+	state->tick();
 	memcpy(lastKeys, currentKeys, (GLFW_KEY_LAST + 1) * sizeof(bool));
 	xMouseLast = xMouse;
 	yMouseLast = yMouse;
-	mouseWasDown = mouseDown;
+	mouseWasDown = mouseIsDown;
 }
 
 void Game::render() {
 	glClear(GL_COLOR_BUFFER_BIT);
+	state->render();
+}
+
+void Game::keyDown(int key) {
+	if (state) {
+		state->keyDown(key);
+	}
+}
+
+void Game::keyUp(int key) {
+	if (state) {
+		state->keyUp(key);
+	}
+}
+
+void Game::mouseDown() {
+	mouseIsDown = true;
+	if (state) {
+		state->mouseDown(xMouse, yMouse);
+	}
+}
+
+void Game::mouseUp() {
+	mouseIsDown = false;
+	if (state) {
+		state->mouseUp(xMouse, yMouse);
+	}
+}
+
+void Game::mouseMoved(double x, double y) {
+	xMouse = x;
+	yMouse = y;
+	if (state) {
+		state->mouseMoved(xMouse, yMouse, xMouse - xMouseLast, yMouse - yMouseLast);
+	}
 }

@@ -3,14 +3,15 @@
 #include "GLFW/glfw3.h"
 #include "Main.h"
 #include "Game.h"
+#include "Common.h"
 #include <iostream>
 #ifdef __EMSCRIPTEN__
 #include "emscripten.h"
 #include "emscripten/html5.h"
 #endif
 
-#define WINDOW_WIDTH 960
-#define WINDOW_HEIGHT 540
+#define GAME_INIT_WINDOW_WIDTH 960
+#define GAME_INIT_WINDOW_HEIGHT 540
 
 static Context context;
 static Context* g = &context;
@@ -23,6 +24,7 @@ void init(void* unused) {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glViewport(0, 0, GAME_INIT_WINDOW_WIDTH, GAME_INIT_WINDOW_HEIGHT);
 	game.init();
 }
 
@@ -58,9 +60,11 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
 	switch (action) {
 		case GLFW_PRESS:
 			updateKey(key, true);
+			game.keyDown(key);
 			break;
 		case GLFW_RELEASE:
 			updateKey(key, false);
+			game.keyUp(key);
 			break;
 		default:
 			break;
@@ -68,18 +72,17 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
 }
 
 static void mousePosCallback(GLFWwindow* window, double x, double y) {
-	game.xMouse = x;
-	game.yMouse = y;
+	game.mouseMoved(x, y);
 }
 
 static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 	if (button == GLFW_MOUSE_BUTTON_LEFT) {
 		switch (action) {
 			case GLFW_PRESS:
-				game.mouseDown = true;
+				game.mouseDown();
 				break;
 			case GLFW_RELEASE:
-				game.mouseDown = false;
+				game.mouseUp();
 				break;
 			default:
 				break;
@@ -94,7 +97,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	g->window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Diamond Gun", NULL, NULL);
+	g->window = glfwCreateWindow(GAME_INIT_WINDOW_WIDTH, GAME_INIT_WINDOW_HEIGHT, "Diamond Gun", NULL, NULL);
     if (g->window == NULL)
     {
         cout << "Failed to open GLFW window." << endl;

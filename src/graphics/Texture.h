@@ -6,6 +6,7 @@ class Texture {
 public:
 	Texture(const char*);
 	~Texture();
+	void bind();
 	unsigned int width, height;
 private:
 	GLuint texture;

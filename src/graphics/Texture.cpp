@@ -6,7 +6,6 @@
 using namespace std;
 
 Texture::Texture(const char* path) {
-	// TODO: File I/O
 	vector<unsigned char> pixels;
 	unsigned int error = lodepng::decode(pixels, width, height, path);
 	if (error) {
@@ -35,4 +34,8 @@ Texture::Texture(const char* path) {
 
 Texture::~Texture() {
 	glDeleteTextures(1, &texture);
+}
+
+void Texture::bind() {
+	glBindTexture(GL_TEXTURE_2D, texture);
 }

@@ -1,0 +1,28 @@
+<vertex>
+attribute vec2 position;
+
+uniform mat4 projectionMatrix;
+
+varying vec2 pos;
+
+void main()
+{
+	pos = position;
+	gl_Position = projectionMatrix * vec4(position, 0.0, 1.0);
+}
+</vertex>
+
+<fragment>
+uniform texture2D textureSampler;
+uniform uint8 tiles[300];
+
+varying vec2 pos;
+
+void main()
+{
+	vec2 tilePos = floor(vec2(pos.x * 20.0, pos.y * 15.0));
+	uint8 tileType = tiles[int(tilePos.x) + int(tilePos.y) * 20];
+	vec2 uvs = vec2(mod(tileType, 4), floor(tileType / 4)) / 4.0;
+	gl_FragColor = vec4(texture2D(textureSampler, uvs).xyz, 1.0);
+}
+</fragment>

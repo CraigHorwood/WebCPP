@@ -2,13 +2,37 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <map>
 
 using namespace std;
 
 Shader::Shader(const char* path) {
-	// TODO: File I/O
-	GLuint vertexShader = compileShader("vertex shader code", GL_VERTEX_SHADER);
-	GLuint fragmentShader = compileShader("fragment shader code", GL_FRAGMENT_SHADER);
+	string vertexShaderCode = "";
+	string fragmentShaderCode = "";
+	string* codeReference = nullptr;
+
+	ifstream shaderFile(path);
+	if (shaderFile.is_open()) {
+		string line;
+		while (getline(shaderFile, line)) {
+			if (!line.compare("<vertex>")) {
+				codeReference = &vertexShaderCode;
+			} else if (!line.compare("<fragment>")) {
+				codeReference = &fragmentShaderCode;
+			} else if (!line.compare("</vertex>") || !line.compare("</fragment>")) {
+				codeReference = nullptr;
+			}
+			if (codeReference != nullptr) {
+				codeReference->append(line);
+			}
+		}
+		shaderFile.close();
+	}
+
+	GLuint vertexShader = compileShader(vertexShaderCode.c_str(), GL_VERTEX_SHADER);
+	GLuint fragmentShader = compileShader(fragmentShaderCode.c_str(), GL_FRAGMENT_SHADER);
 	program = glCreateProgram();
 	glAttachShader(program, vertexShader);
 	glAttachShader(program, fragmentShader);
@@ -70,3 +94,12 @@ GLuint Shader::compileShader(const char* source, GLenum type) {
 void Shader::bind() {
 	glUseProgram(program);
 }
+
+void Shader::getUniformLocation(const string name) {
+	const GLint uniformLocation = glGetUniformLocation(program, name.c_str());
+	uniformLocations.insert(pair<const string, const GLint>(name, uniformLocation));
+}
+
+void Shader::setUniformMatrix4f(const string name, float* matrix) {
+	glUniformMatrix4fv(uniformLocations[name], 1, GL_FALSE, matrix);
+} 
