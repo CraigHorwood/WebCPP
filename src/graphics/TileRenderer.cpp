@@ -33,5 +33,5 @@ void TileRenderer::updateTiles(uint8_t* tiles) {
 void TileRenderer::renderTiles() {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	// Bind tile shader
-	glDrawArrays(GL_TRIANGLES, 0, 12);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
