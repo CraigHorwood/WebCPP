@@ -11,7 +11,7 @@
 #endif
 
 #define GAME_INIT_WINDOW_WIDTH 960
-#define GAME_INIT_WINDOW_HEIGHT 540
+#define GAME_INIT_WINDOW_HEIGHT 840
 
 static Context context;
 static Context* g = &context;

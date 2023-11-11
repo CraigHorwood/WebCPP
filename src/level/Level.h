@@ -2,6 +2,7 @@
 #define _LEVEL_H
 
 #include "../graphics/SpriteRenderer.h"
+#include <inttypes.h>
 
 class Level {
 public:
@@ -9,8 +10,9 @@ public:
 	~Level();
 	void tick();
 	void renderSprites(SpriteRenderer&);
+	uint8_t getTile(int, int);
 private:
-	unsigned char tiles[300];
+	uint8_t tiles[300];
 protected:
 };
 
