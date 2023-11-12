@@ -4,6 +4,7 @@
 #include "Main.h"
 #include "Game.h"
 #include "Common.h"
+#include "Assets.h"
 #include <iostream>
 #ifdef __EMSCRIPTEN__
 #include "emscripten.h"
@@ -25,6 +26,7 @@ void init(void* unused) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glViewport(0, 0, GAME_INIT_WINDOW_WIDTH, GAME_INIT_WINDOW_HEIGHT);
+	Assets::loadAll();
 	game.init();
 }
 
@@ -48,6 +50,7 @@ void mainLoop() {
 
 void shutdown() {
 	game.shutdown();
+	Assets::deleteAll();
 }
 
 inline void updateKey(int key, bool down) {

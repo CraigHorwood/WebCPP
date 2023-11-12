@@ -13,6 +13,7 @@ public:
 	uint8_t getTile(int, int);
 private:
 	uint8_t tiles[300];
+	float xTest;
 protected:
 };
 

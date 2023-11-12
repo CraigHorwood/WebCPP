@@ -1,8 +1,9 @@
 #ifndef _GAME_H
 #define _GAME_H
 
+#include "GL/glew.h"
 #include "GLFW/glfw3.h"
-#include "State.h"
+#include "state/State.h"
 
 class Game {
 public:

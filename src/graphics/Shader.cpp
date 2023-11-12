@@ -19,8 +19,10 @@ Shader::Shader(const char* path) {
 		while (getline(shaderFile, line)) {
 			if (!line.compare("<vertex>")) {
 				codeReference = &vertexShaderCode;
+				continue;
 			} else if (!line.compare("<fragment>")) {
 				codeReference = &fragmentShaderCode;
+				continue;
 			} else if (!line.compare("</vertex>") || !line.compare("</fragment>")) {
 				codeReference = nullptr;
 			}

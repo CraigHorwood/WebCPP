@@ -4,6 +4,7 @@
 
 class Texture {
 public:
+	Texture() {}
 	Texture(const char*);
 	~Texture();
 	void bind();

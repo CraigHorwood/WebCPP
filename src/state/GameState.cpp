@@ -12,9 +12,9 @@ GameState::~GameState() {
 }
 
 void GameState::tick() {
-	// Game state update, 60fps
+	level.tick();
 }
 
 void GameState::render() {
-	// Use member Renderers
+	level.renderSprites(spriteRenderer);
 }

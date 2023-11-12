@@ -1,7 +1,8 @@
 #include "Game.h"
+#include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <cstring>
-#include "GameState.h"
+#include "state/GameState.h"
 
 void Game::init() {
 	memset(lastKeys, false, (GLFW_KEY_LAST + 1) * sizeof(bool));

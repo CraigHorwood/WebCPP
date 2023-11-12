@@ -11,6 +11,7 @@
 
 class Shader {
 public:
+	Shader() {}
 	Shader(const char*);
 	~Shader();
 	void bind();

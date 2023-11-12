@@ -9,7 +9,7 @@ typedef struct PlayerInput {
 	bool left, right, up, down, jump, shoot, change;
 } PlayerInput;
 
-class Player : Entity {
+class Player : public Entity {
 public:
 	Player(Level*, float, float);
 	void tick(PlayerInput);

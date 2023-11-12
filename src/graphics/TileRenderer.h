@@ -1,10 +1,11 @@
 #ifndef _TILE_RENDERER_H
 #define _TILE_RENDERER_H
 
+#include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include "Renderer.h"
 
-class TileRenderer : Renderer {
+class TileRenderer : public Renderer {
 public:
 	TileRenderer();
 	~TileRenderer();

@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(WebCPP VERSION 0.1.0 LANGUAGES C CXX)
 
-FILE(GLOB SOURCE_FILES src/*.cpp src/graphics/*.cpp)
+FILE(GLOB SOURCE_FILES src/*.cpp src/graphics/*.cpp src/state/*.cpp src/level/*.cpp src/entity/*.cpp)
+FILE(COPY assets DESTINATION .)
 
 add_executable(WebCPP
 	${SOURCE_FILES}
