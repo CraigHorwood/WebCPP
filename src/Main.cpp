@@ -28,10 +28,15 @@ void init(void* unused) {
 	glViewport(0, 0, GAME_INIT_WINDOW_WIDTH, GAME_INIT_WINDOW_HEIGHT);
 	Assets::loadAll();
 	game.init();
+	g->then = glfwGetTime();
+	g->unprocessedTime = 0.0;
 }
 
 void mainLoop() {
-	game.mainLoop();
+	double now = glfwGetTime();
+	g->unprocessedTime += now - g->then;
+	game.mainLoop(g->unprocessedTime);
+	g->then = now;
 	glfwSwapBuffers(g->window);
 	glfwPollEvents();
 	if (glfwWindowShouldClose(g->window)) {

@@ -8,7 +8,7 @@
 class Game {
 public:
 	void init();
-	void mainLoop();
+	void mainLoop(double&);
 	void shutdown();
 	void keyDown(int);
 	void keyUp(int);

@@ -5,6 +5,8 @@
 typedef struct Context {
 	bool shutdown;
 	GLFWwindow* window;
+	double then;
+	double unprocessedTime;
 } Context;
 
 void init(void* unused);

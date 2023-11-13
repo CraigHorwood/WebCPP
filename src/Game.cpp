@@ -16,10 +16,11 @@ void Game::init() {
 	state = new GameState();
 }
 
-void Game::mainLoop() {
-	// Tick for length of passed time
-	// Render
-	tick();
+void Game::mainLoop(double& unprocessedTime) {
+	while (unprocessedTime > 0.0) {
+		tick();
+		unprocessedTime -= 1.0 / 60.0;
+	}
 	render();
 }
 

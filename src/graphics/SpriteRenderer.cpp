@@ -43,6 +43,16 @@ SpriteRenderer::SpriteRenderer() : Renderer() {
 	shader = nullptr;
 	texture = nullptr;
 	spriteCount = 0;
+
+	for (int i = 0; i < 16; i++) {
+		projectionMatrix[i] = 0.0f;
+	}
+	projectionMatrix[0] = 1.0f / 160.0f;
+	projectionMatrix[5] = -1.0f / 140.0f;
+	projectionMatrix[10] = -1.0f;
+	projectionMatrix[12] = -1.0f;
+	projectionMatrix[13] = 1.0f;
+	projectionMatrix[15] = 1.0f;
 }
 
 SpriteRenderer::~SpriteRenderer() {
@@ -56,6 +66,7 @@ void SpriteRenderer::begin(Shader* shader, Texture* texture) {
 		this->shader = shader;
 		if (shader != nullptr) {
 			shader->bind();
+			shader->setUniformMatrix4f("projectionMatrix", projectionMatrix);
 		}
 	}
 	if (this->texture != texture) {

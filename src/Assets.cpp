@@ -7,6 +7,7 @@ Texture* Assets::tilesTexture;
 
 void Assets::loadAll() {
 	spriteShader = new Shader("assets/shaders/sprite.sdr");
+	spriteShader->getUniformLocation("projectionMatrix");
 	tilesTexture = new Texture("assets/textures/tiles.png");
 }
 

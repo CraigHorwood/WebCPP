@@ -23,6 +23,7 @@ private:
 	GLuint vbo, ibo;
 	float vertices[MAX_SPRITES * FLOATS_PER_VERTEX];
 	int spriteCount;
+	float projectionMatrix[16];
 protected:
 };
 
