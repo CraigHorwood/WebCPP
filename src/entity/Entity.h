@@ -3,15 +3,22 @@
 
 #include "../graphics/SpriteRenderer.h"
 #include "../level/Level.h"
+#include <queue>
+
+#define HIT_BOX_EPSILON 0.0078125f
 
 typedef struct HitBox {
-	float xo, yo, w, h;
+	float x, y, w, h;
 } HitBox;
 
 typedef struct HitResult {
 	uint8_t tile;
-	float x, y, w, h;
+	HitBox hitBox;
 } HitResult;
+
+enum CollisionPhase {
+	x, y
+};
 
 class Entity {
 public:
@@ -22,9 +29,10 @@ public:
 	bool onGround;
 	HitBox hitBox;
 private:
-	HitResult hitTile();
+	void checkTileCollisions(CollisionPhase);
 protected:
 	void move();
+	void hitTile(const HitResult&, CollisionPhase);
 	Level* level;
 };
 
