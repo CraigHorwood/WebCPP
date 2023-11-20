@@ -2,19 +2,20 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <iostream>
+#include "Shader.h"
 
 using namespace std;
 
 TileRenderer::TileRenderer() : Renderer() {
 	cout << "Initialsiing tile renderer" << endl;
 
-	float vertices[12] = {
-		0.0f, 1.0f,
-		0.0f, 0.0f,
-		1.0f, 0.0f,
-		1.0f, 0.0f,
-		1.0f, 1.0f,
-		0.0f, 1.0f
+	float vertices[24] = {
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 15.0f,
+		1.0f, 0.0f, 20.0f, 15.0f,
+		1.0f, 0.0f, 20.0f, 15.0f,
+		1.0f, 1.0f, 20.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
 	};
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -32,6 +33,8 @@ void TileRenderer::updateTiles(uint8_t* tiles) {
 
 void TileRenderer::renderTiles() {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glVertexAttribPointer(ATTR_POS, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) 0);
+	glVertexAttribPointer(ATTR_UV, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) (2 * sizeof(float)));
 	// Bind tile shader
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }

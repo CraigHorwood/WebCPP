@@ -12,7 +12,7 @@ public:
 	void tick() override;
 	void render() override;
 private:
-	Level level;
+	Level* level;
 	SpriteRenderer spriteRenderer;
 protected:
 };

@@ -24,10 +24,10 @@ void Entity::checkTileCollisions(CollisionPhase phase) {
 	const float y0 = y + hitBox.y;
 	const float x1 = x + hitBox.x + hitBox.w - HIT_BOX_EPSILON;
 	const float y1 = y + hitBox.y + hitBox.h - HIT_BOX_EPSILON;
-	const int xt0 = (int) x0;
-	const int yt0 = (int) y0;
-	const int xt1 = (int) x1;
-	const int yt1 = (int) y1;
+	const int xt0 = (int) x0 >> 4;
+	const int yt0 = (int) y0 >> 4;
+	const int xt1 = (int) x1 >> 4;
+	const int yt1 = (int) y1 >> 4;
 	HitResult hit;
 	for (int yt = yt0; yt <= yt1; yt++) {
 		for (int xt = xt0; xt <= xt1; xt++) {

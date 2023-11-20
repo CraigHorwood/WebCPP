@@ -10,8 +10,14 @@ using namespace std;
 
 Level::Level() {
 	memset(tiles, 0, sizeof(tiles));
+	for (int y = 10; y < 15; y++) {
+		for (int x = 0; x < 120; x++) {
+			tiles[x + y * 20] = 1;
+		}
+	}
 	xTest = 0.0f;
-	addEntity(new Player(this, 128.0f, 64.0f));
+	player = new Player(this, 128.0f, 64.0f);
+	addEntity(player);
 }
 
 Level::~Level() {

@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../graphics/SpriteRenderer.h"
 #include "../level/Level.h"
+#include "../Assets.h"
 
 Player::Player(Level* level, float x, float y) : Entity(level, { 0.0f, 0.0f, 16.0f, 24.0f }) {
 	this->x = x;
@@ -14,6 +15,7 @@ void Player::tick(bool left, bool right, bool up, bool down, bool jump, bool sho
 	} else if (right) {
 		xVel = 2.0f;
 	}
+	x += xVel;
 	if (jump && onGround) {
 		yVel = -8.0f;
 	}
@@ -22,5 +24,7 @@ void Player::tick(bool left, bool right, bool up, bool down, bool jump, bool sho
 }
 
 void Player::render(SpriteRenderer& spriteRenderer) {
-	//
+	spriteRenderer.begin(Assets::spriteShader, Assets::entitiesTexture);
+	spriteRenderer.draw(x, y, 0.0f, 0.0f, 16.0f, 24.0f);
+	spriteRenderer.end();
 }
